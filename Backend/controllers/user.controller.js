@@ -51,7 +51,7 @@ module.exports.loginUser = async (req, res, next) => {
     res.cookie("token", token);
     res.status(200).json({ token, user });
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
