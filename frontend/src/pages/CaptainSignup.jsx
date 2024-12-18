@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { CaptainDataContext } from "../context/CaptainContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CaptainSignup = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -13,16 +18,62 @@ const CaptainSignup = () => {
   const [vehicleCapacity, setVehicleCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
 
-  const submitHandler = (e) => {
+  const { captain, setCaptain } = useContext(CaptainDataContext);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
+    const captainData = {
       fullname: {
-        firstName: firstName,
-        lastName: lastName,
+        firstname: firstName,
+        lastname: lastName,
       },
       email: email,
       password: password,
-    });
+      vehicle: {
+        color: vehicleColor,
+        plate: vehiclePlate,
+        capacity: vehicleCapacity,
+        vehicleType: vehicleType,
+      },
+    };
+    console.log(captainData);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/captains/register`,
+        captainData
+      );
+
+      if (response.status === 201) {
+        const data = response.data;
+        console.log(data);
+        setCaptain("Data here : ", data.captain);
+        localStorage.setItem("token", data.token);
+        // localStorage.setItem("role", data.captain.role);
+
+        navigate("/captain-home");
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errorData = error.response.data;
+
+        // Check if `errors` array exists
+        if (Array.isArray(errorData.errors)) {
+          errorData.errors.forEach((err) => {
+            console.error(`Error Type: ${err.type}`);
+            console.error(`Message: ${err.msg}`);
+            console.error(`Path: ${err.path}`);
+            console.error(`Location: ${err.location}`);
+          });
+        } else {
+          console.error("Unexpected Error Structure:", errorData);
+        }
+      } else if (error.request) {
+        console.error("No Response Received:", error.request);
+      } else {
+        console.error("Unexpected Error:", error.message);
+      }
+    }
+
     console.log(userData);
     setEmail("");
     setFirstName("");

@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const UserLogout = () => {
+export const CaptainLogout = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   useEffect(() => {
     // Logout API call
     axios
-      .get(`${import.meta.env.VITE_API_URL}/users/logout`, {
+      .get(`${import.meta.env.VITE_API_URL}/captains/logout`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -18,17 +18,17 @@ export const UserLogout = () => {
           localStorage.removeItem("token");
           // localStorage.removeItem("role");
 
-          navigate("/login");
+          navigate("/captain-login");
         }
       })
       .catch((error) => {
         console.error("API error during logout:", error);
         // Optional: Navigate to login anyway if logout fails
-        navigate("/login");
+        navigate("/captain-login");
       });
   }, [navigate, token]);
 
   return <div>Logging you out...</div>;
 };
 
-export default UserLogout;
+export default CaptainLogout;

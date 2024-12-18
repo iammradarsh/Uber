@@ -23,8 +23,10 @@ const UserLogin = () => {
     );
     if (response.status === 200) {
       const data = response.data;
+      console.log(data);
       setUser(data.user);
       localStorage.setItem("token", data.token);
+      // localStorage.setItem("role", data.user.role);
       navigate("/home");
     }
     // console.log(userData);

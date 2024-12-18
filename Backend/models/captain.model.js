@@ -65,6 +65,7 @@ const captainSchema = new mongoose.Schema({
       type: Number,
     },
   },
+  // role: { type: String, default: "captain", enum: ["captain"] },
 });
 
 captainSchema.methods.generateAuthToken = function () {
