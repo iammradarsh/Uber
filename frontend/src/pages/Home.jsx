@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import "remixicon/fonts/remixicon.css";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -39,7 +40,18 @@ const Home = () => {
       </div>
       <div className="flex flex-col justify-end bg-white h-screen absolute top-0 w-full ">
         <div className="h-[30%] p-6 bg-white">
-          <h4 className="text-3xl font-bold">Find a trip</h4>
+          <div className="w-full flex justify-between items-center">
+            <h4 className="text-3xl font-bold">Find a trip</h4>
+            <i
+              onClick={() => {
+                setPanelOpen(!panelOpen);
+              }}
+              className={`ri-arrow-down-s-line text-3xl transition-all ${
+                panelOpen ? "" : "rotate-180"
+              }`}
+            ></i>
+          </div>
+
           <form
             className="relative py-3"
             onSubmit={(e) => {
@@ -50,7 +62,7 @@ const Home = () => {
             <input
               value={pickup}
               onClick={() => {
-                setPanelOpen(!panelOpen);
+                setPanelOpen(true);
               }}
               onChange={(e) => {
                 setPickup(e.target.value);
@@ -62,7 +74,7 @@ const Home = () => {
             <input
               value={destination}
               onClick={() => {
-                setPanelOpen(!panelOpen);
+                setPanelOpen(true);
               }}
               onChange={(e) => {
                 setDestination(e.target.value);
