@@ -2,12 +2,17 @@ import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
+import LocationSearchPanel from "../components/LocationSearchPanel";
+
+// Image Import
+import blackCarImage from "../assets/img/black_car.png";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
   const panelRef = useRef(null);
+  // const panelCloseRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
   };
@@ -16,10 +21,12 @@ const Home = () => {
     if (panelOpen) {
       gsap.to(panelRef.current, {
         height: "70%",
+        display: "block",
       });
     } else {
       gsap.to(panelRef.current, {
         height: "0%",
+        display: "none",
       });
     }
   }, [panelOpen]);
@@ -38,8 +45,8 @@ const Home = () => {
           alt="map"
         />
       </div>
-      <div className="flex flex-col justify-end bg-white h-screen absolute top-0 w-full ">
-        <div className="h-[30%] p-6 bg-white">
+      <div className="flex flex-col justify-end h-screen absolute top-0 w-full ">
+        <div className="h-fit p-6 bg-white">
           <div className="w-full flex justify-between items-center">
             <h4 className="text-3xl font-bold">Find a trip</h4>
             <i
@@ -47,7 +54,7 @@ const Home = () => {
                 setPanelOpen(!panelOpen);
               }}
               className={`ri-arrow-down-s-line text-3xl transition-all ${
-                panelOpen ? "" : "rotate-180"
+                panelOpen ? "opacity-100" : "opacity-0 rotate-180"
               }`}
             ></i>
           </div>
@@ -67,7 +74,7 @@ const Home = () => {
               onChange={(e) => {
                 setPickup(e.target.value);
               }}
-              className=" bg-[#eee] px-8 py-2 text-base rounded-lg w-full mt-5"
+              className=" bg-[#eee] px-8 py-2 text-lg rounded-lg w-full mt-5"
               type="text"
               placeholder="Add a Pickup Location"
             />
@@ -79,13 +86,34 @@ const Home = () => {
               onChange={(e) => {
                 setDestination(e.target.value);
               }}
-              className=" bg-[#eee] px-8 py-2 text-base rounded-lg w-full mt-3"
+              className=" bg-[#eee] px-8 py-2 text-lg rounded-lg w-full mt-3"
               type="text"
               placeholder="Enter Your Destination"
             />
           </form>
         </div>
-        <div ref={panelRef} className="bg-red-500 h-0"></div>
+        <div ref={panelRef} className="bg-white h-0 px-6">
+          <LocationSearchPanel />
+        </div>
+      </div>
+      <div className="fixed w-full z-10 bottom-0 bg-white px-3 py-6">
+        <div className="flex border-2 border-black rounded-xl w-full p-3 items-center justify-between">
+          <img className="h-12" src={blackCarImage} alt="black_car" />
+          <div className="w-1/2">
+            <h4 className="font-medium text-lg">
+              UberGo{" "}
+              <span>
+                <i class="ri-user-fill">4</i>
+              </span>
+            </h4>
+            <h5 className="font-medium text-sm"> 2 mins away</h5>
+            <p className="font-normal text-xs text-gray-600">
+              {" "}
+              Affordable, compact rides
+            </p>
+          </div>
+          <h2 className="text-xl font-semibold">₹123</h2>
+        </div>
       </div>
     </div>
   );
