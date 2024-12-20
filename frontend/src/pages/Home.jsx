@@ -97,22 +97,72 @@ const Home = () => {
         </div>
       </div>
       <div className="fixed w-full z-10 bottom-0 bg-white px-3 py-6">
-        <div className="flex border-2 border-black rounded-xl w-full p-3 items-center justify-between">
-          <img className="h-12" src={blackCarImage} alt="black_car" />
-          <div className="w-1/2">
-            <h4 className="font-medium text-lg">
-              UberGo{" "}
-              <span>
-                <i class="ri-user-fill">4</i>
-              </span>
-            </h4>
-            <h5 className="font-medium text-sm"> 2 mins away</h5>
-            <p className="font-normal text-xs text-gray-600">
-              {" "}
-              Affordable, compact rides
-            </p>
+        <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
+        <div className="flex border-2 active:border-black rounded-xl w-full p-3 mb-2 items-center justify-between">
+          <div className="flex gap-4">
+            <img className="h-12" src={blackCarImage} alt="black_car" />
+            <div className="w-3/4">
+              <h4 className="font-medium text-lg">
+                UberGo{" "}
+                <span>
+                  <i class="ri-user-fill">4</i>
+                </span>
+              </h4>
+              <h5 className="font-medium text-sm"> 2 mins away</h5>
+              <p className="font-normal text-xs text-gray-600">
+                {" "}
+                Affordable, compact rides
+              </p>
+            </div>
           </div>
-          <h2 className="text-xl font-semibold">₹123</h2>
+
+          <h2 className="text-lg font-semibold">₹123.07</h2>
+        </div>
+        <div className="flex border-2 active:border-black rounded-xl w-full p-3 mb-2 items-center justify-between">
+          <div className="flex gap-4">
+            <img
+              className="h-12"
+              src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1649231091/assets/2c/7fa194-c954-49b2-9c6d-a3b8601370f5/original/Uber_Moto_Orange_312x208_pixels_Mobile.png"
+              alt="black_car"
+            />
+            <div className="w-3/4">
+              <h4 className="font-medium text-lg">
+                Moto{" "}
+                <span>
+                  <i class="ri-user-fill">1</i>
+                </span>
+              </h4>
+              <h5 className="font-medium text-sm"> 3 mins away</h5>
+              <p className="font-normal text-xs text-gray-600">
+                {" "}
+                Affordable, motorcycle ride
+              </p>
+            </div>
+          </div>
+          <h2 className="text-lg font-semibold">₹65.17</h2>
+        </div>
+        <div className="flex border-2 active:border-black rounded-xl w-full p-3 mb-2 items-center justify-between">
+          <div className="flex gap-4">
+            <img
+              className="h-12"
+              src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1648431773/assets/1d/db8c56-0204-4ce4-81ce-56a11a07fe98/original/Uber_Auto_558x372_pixels_Desktop.png"
+              alt="black_car"
+            />
+            <div className="w-3/4">
+              <h4 className="font-medium text-lg">
+                UberAuto{" "}
+                <span>
+                  <i class="ri-user-fill">3</i>
+                </span>
+              </h4>
+              <h5 className="font-medium text-sm"> 2 mins away</h5>
+              <p className="font-normal text-xs text-gray-600">
+                {" "}
+                Affordable, Auto ride
+              </p>
+            </div>
+          </div>
+          <h2 className="text-lg font-semibold">₹118.21</h2>
         </div>
       </div>
     </div>
