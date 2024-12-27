@@ -11,6 +11,7 @@ export const CaptainLogout = () => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/captains/logout`, {
         headers: { Authorization: `Bearer ${token}` },
+        "ngrok-skip-browser-warning": true,
       })
       .then((response) => {
         if (response.status === 200) {

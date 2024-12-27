@@ -36,6 +36,7 @@ const CaptainSignup = () => {
         vehicleType: vehicleType,
       },
     };
+
     console.log(captainData);
     try {
       const response = await axios.post(

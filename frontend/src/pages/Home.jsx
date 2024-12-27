@@ -6,12 +6,26 @@ import LocationSearchPanel from "../components/LocationSearchPanel";
 
 // Image Import
 import blackCarImage from "../assets/img/black_car.png";
+import { use } from "react";
+import VehiclePanel from "../components/VehiclePanel";
+import ConfirmRide from "../components/ConfirmRide";
+import LookingForDriver from "../components/LookingForDriver";
+import WaitingFprDriver from "../components/WaitingFprDriver";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
   const panelRef = useRef(null);
+  const vehiclePanelRef = useRef(null);
+  const confirmRidePanelRef = useRef(null);
+  const vehicleFoundRef = useRef(null);
+  const WaitingForDriverRef = useRef(null);
+
+  const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
+  const [confirmRidePanel, setConfirmRidePanel] = useState(false);
+  const [vehicleFound, setVehicleFound] = useState(false);
+  const [waitingForDriver, setWaitingForDriver] = useState(false);
   // const panelCloseRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
@@ -30,6 +44,54 @@ const Home = () => {
       });
     }
   }, [panelOpen]);
+
+  useGSAP(() => {
+    if (vehiclePanelOpen) {
+      gsap.to(vehiclePanelRef.current, {
+        transform: "translateY(0)",
+      });
+    } else {
+      gsap.to(vehiclePanelRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [vehiclePanelOpen]);
+
+  useGSAP(() => {
+    if (confirmRidePanel) {
+      gsap.to(confirmRidePanelRef.current, {
+        transform: "translateY(0)",
+      });
+    } else {
+      gsap.to(confirmRidePanelRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [confirmRidePanel]);
+
+  useGSAP(() => {
+    if (vehicleFound) {
+      gsap.to(vehicleFoundRef.current, {
+        transform: "translateY(0)",
+      });
+    } else {
+      gsap.to(vehicleFoundRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [vehicleFound]);
+
+  useGSAP(() => {
+    if (waitingForDriver) {
+      gsap.to(WaitingForDriverRef.current, {
+        transform: "translateY(0)",
+      });
+    } else {
+      gsap.to(WaitingForDriverRef.current, {
+        transform: "translateY(100%)",
+      });
+    }
+  }, [waitingForDriver]);
 
   return (
     <div className="relative">
@@ -93,77 +155,51 @@ const Home = () => {
           </form>
         </div>
         <div ref={panelRef} className="bg-white h-0 px-6">
-          <LocationSearchPanel />
+          <LocationSearchPanel
+            setPanelOpen={setPanelOpen}
+            setVehiclePanel={setVehiclePanelOpen}
+          />
         </div>
       </div>
-      <div className="fixed w-full z-10 bottom-0 bg-white px-3 py-6">
-        <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
-        <div className="flex border-2 active:border-black rounded-xl w-full p-3 mb-2 items-center justify-between">
-          <div className="flex gap-4">
-            <img className="h-12" src={blackCarImage} alt="black_car" />
-            <div className="w-3/4">
-              <h4 className="font-medium text-lg">
-                UberGo{" "}
-                <span>
-                  <i class="ri-user-fill">4</i>
-                </span>
-              </h4>
-              <h5 className="font-medium text-sm"> 2 mins away</h5>
-              <p className="font-normal text-xs text-gray-600">
-                {" "}
-                Affordable, compact rides
-              </p>
-            </div>
-          </div>
+      <div
+        ref={vehiclePanelRef}
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
+      >
+        <VehiclePanel
+          setVehiclePanelOpen={setVehiclePanelOpen}
+          setConfirmRidePanel={setConfirmRidePanel}
+          blackCarImage={blackCarImage}
+        />
+      </div>
+      <div
+        ref={confirmRidePanelRef}
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+      >
+        <ConfirmRide
+          setConfirmRidePanel={setConfirmRidePanel}
+          setVehiclePanelOpen={setVehiclePanelOpen}
+          setVehicleFound={setVehicleFound}
 
-          <h2 className="text-lg font-semibold">₹123.07</h2>
-        </div>
-        <div className="flex border-2 active:border-black rounded-xl w-full p-3 mb-2 items-center justify-between">
-          <div className="flex gap-4">
-            <img
-              className="h-12"
-              src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1649231091/assets/2c/7fa194-c954-49b2-9c6d-a3b8601370f5/original/Uber_Moto_Orange_312x208_pixels_Mobile.png"
-              alt="black_car"
-            />
-            <div className="w-3/4">
-              <h4 className="font-medium text-lg">
-                Moto{" "}
-                <span>
-                  <i class="ri-user-fill">1</i>
-                </span>
-              </h4>
-              <h5 className="font-medium text-sm"> 3 mins away</h5>
-              <p className="font-normal text-xs text-gray-600">
-                {" "}
-                Affordable, motorcycle ride
-              </p>
-            </div>
-          </div>
-          <h2 className="text-lg font-semibold">₹65.17</h2>
-        </div>
-        <div className="flex border-2 active:border-black rounded-xl w-full p-3 mb-2 items-center justify-between">
-          <div className="flex gap-4">
-            <img
-              className="h-12"
-              src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1648431773/assets/1d/db8c56-0204-4ce4-81ce-56a11a07fe98/original/Uber_Auto_558x372_pixels_Desktop.png"
-              alt="black_car"
-            />
-            <div className="w-3/4">
-              <h4 className="font-medium text-lg">
-                UberAuto{" "}
-                <span>
-                  <i class="ri-user-fill">3</i>
-                </span>
-              </h4>
-              <h5 className="font-medium text-sm"> 2 mins away</h5>
-              <p className="font-normal text-xs text-gray-600">
-                {" "}
-                Affordable, Auto ride
-              </p>
-            </div>
-          </div>
-          <h2 className="text-lg font-semibold">₹118.21</h2>
-        </div>
+          // blackCarImage={blackCarImage}
+        />
+      </div>
+      <div
+        ref={vehicleFoundRef}
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+      >
+        <LookingForDriver
+          setConfirmRidePanel={setConfirmRidePanel}
+          setVehicleFound={setVehicleFound}
+        />
+      </div>
+      <div
+        ref={WaitingForDriverRef}
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
+      >
+        <WaitingFprDriver
+          setVehicleFound={setVehicleFound}
+          setWaitingForDriver={setWaitingForDriver}
+        />
       </div>
     </div>
   );
